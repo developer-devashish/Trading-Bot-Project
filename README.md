@@ -1,198 +1,175 @@
-# Trading Bot (Binance Demo API)
+````md
+# 📈 Binance Trading Bot (Python)
 
-A CLI-based Python trading bot that places **MARKET** and **LIMIT** orders using the Binance **Demo Trading API**. It features a clean design, input checks, organized logging, and strong error handling.
+A simple Python-based trading bot that allows users to place **MARKET** and **LIMIT** orders on the Binance Demo API using secure API authentication.
 
----
-
-## Objective
-
-* Place orders through the CLI
-* Support BUY / SELL, MARKET / LIMIT
-* Provide clear outputs and logs
-* Follow a modular code structure suited for production
+Objective
+Place orders through the CLI
+Support BUY / SELL, MARKET / LIMIT
+Provide clear outputs and logs
+Follow a modular code structure suited for production
 
 ---
 
-## Project Structure
+# 🚀 Features
 
-```
+- ✅ Place BUY and SELL orders
+- ✅ Supports MARKET and LIMIT orders
+- ✅ Binance API request signing using HMAC SHA256
+- ✅ Environment variable support using `.env`
+- ✅ Input validation for safe order placement
+- ✅ Logging system for tracking bot activity
+- ✅ Modular and maintainable project structure
+
+---
+
+# 📂 Project Structure
+
+```bash
 trading_bot/
 │
 ├── bot/
 │   ├── __init__.py
-│   ├── client.py        # API client (HMAC signing and request handling)
-│   ├── orders.py        # Order placement logic
-│   ├── validators.py    # Input validation
-│   └── logging_config.py
+│   ├── client.py
+│   ├── logging_config.py
+│   ├── orders.py
+│   └── validators.py
 │
-├── cli.py               # CLI entry point
-├── .env                 # API credentials (not committed)
-├── requirements.txt
-└── logs/
+├── logs/
+│   └── app.log
+│
+├── .env
+├── .gitignore
+├── cli.py
+├── README.md
+└── requirements.txt
+````
+
+---
+
+# ⚙️ Technologies Used
+
+* Python
+* Binance Demo API
+* Requests
+* Dotenv
+* Logging Module
+* HMAC SHA256 Authentication
+
+---
+
+# 🔑 Setup Instructions
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/trading_bot.git
+cd trading_bot
 ```
 
 ---
 
-## Setup Instructions
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/developer-devashish/Trading-Bot-Project
-cd trading_bot
-```
-
-### 2. Install dependencies
+## 2️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Create `.env` file
+---
+
+## 3️⃣ Configure Environment Variables
+
+Create a `.env` file in the root directory.
 
 ```env
-API_KEY=your_api_key
-API_SECRET=your_secret_key
+API_KEY=your_binance_api_key
+API_SECRET=your_binance_api_secret
 ```
-
-> Do NOT commit `.env` to GitHub.
 
 ---
 
-## Usage
-
-### MARKET Order
+# ▶️ Run the Bot
 
 ```bash
-python cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
-```
+ python cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001 --mode sell
 
-### LIMIT Order
+
+```
+# 🧠 How It Works
+
+## 🔹 API Client
+
+The `client.py` file handles:
+
+* Binance API connection
+* Request signing
+* Timestamp generation
+* Sending authenticated requests
+
+
+
+---
+
+## 🔹 Order Placement
+
+The `orders.py` module creates and sends MARKET or LIMIT orders.
+
+
+
+---
+
+## 🔹 Validation System
+
+The `validators.py` module validates:
+
+* BUY / SELL side
+* MARKET / LIMIT order type
+* Quantity
+* Price validation for LIMIT orders
+
+
+
+---
+
+## 🔹 Logging
+
+The project automatically creates logs inside:
 
 ```bash
-python cli.py --symbol BTCUSDT --side SELL --type LIMIT --quantity 0.001 --price 60000
-```
-
----
-
-## Sample Output
-
-```
-Order Summary:
-{'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'price': None}
-
-Order Successful
-Order ID: 12345678
-Status: FILLED
-Executed Qty: 0.001
-Avg Price: 60000
-```
-
----
-
-## Features
-
-* MARKET and LIMIT order support
-* BUY and SELL support
-* CLI argument parsing using argparse
-* Input validation for type, side, quantity, and price
-* Structured logging to a file
-* Error handling for API issues and invalid input
-* Modular code design
-
----
-
-## Logging
-
-* Logs are stored in:
-
-```
 logs/app.log
 ```
 
-* Includes:
+Logging setup:
 
-  * API requests
-  * API responses
-  * Errors
+
 
 ---
 
-## Important Note (API Environment)
+# 📌 Example Order Flow
 
-Due to recent changes in Binance:
-
-* The original **Futures Testnet UI now directs to Demo Trading**
-* Demo Trading uses **Spot-style API endpoints**
-* This project uses:
-
-```
-https://demo-api.binance.com
-```
-
-instead of:
-
-```
-https://testnet.binancefuture.com
+```text
+1. User enters trading details
+2. Input gets validated
+3. Request is signed securely
+4. Order is sent to Binance Demo API
+5. Response is displayed
+6. Activity gets logged
 ```
 
 ---
 
-## Technical Highlights
+# 👨‍💻 Author
 
-* Manual **HMAC SHA256 signing**
-* Timestamp synchronization using server time
-* Clear separation of concerns:
+**Devashish Ghosh**
 
-  * API layer
-  * Business logic
-  * CLI layer
+* Python Developer
+* Cloud & Automation Enthusiast
 
 ---
 
-## Error Handling
+# 📜 License
 
-Handles:
+This project is licensed under the MIT License.
 
-* Invalid input values
-* Errors in API responses
-* Timestamp mismatch issues
-* Network failures
-
----
-
-## Requirements
-
-```txt
-requests
-python-dotenv
 ```
-
----
-
-## Future Improvements (Optional)
-
-* Stop-Limit orders
-* Interactive CLI (menu-based)
-* Web UI dashboard
-* Strategy-based trading
-
----
-
-## Author
-
-Devashish Ghosh
-
----
-
-## Evaluation Checklist
-
-| Criteria        | Status |
-| --------------- | ------ |
-| Order placement | ✅      |
-| Code structure  | ✅      |
-| Validation      | ✅      |
-| Logging         | ✅      |
-| CLI usability   | ✅      |
-
----
+```
